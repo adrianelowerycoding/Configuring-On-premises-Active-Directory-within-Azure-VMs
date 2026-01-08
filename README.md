@@ -19,6 +19,8 @@ This tutorial outlines the implementation of on-premises Active Directory within
 
 <h2>High-Level Deployment and Configuration Steps</h2>
 
+Preparing Active Directory: 
+
   1. Create Domain Controller Virtual Machine
   2. Set Domain Controller VM's NIC Private Address to Static
   3. Disable Domain Controller's Windows Firewall
@@ -26,11 +28,21 @@ This tutorial outlines the implementation of on-premises Active Directory within
   5. Set Client's DNS settings to Domain Controller's Private IP Address
   6. Test Client and Domain Controller's Connection
 
-<h2>Deployment and Configuration Steps</h2>
+Deploying Active Directory: 
+
+  1. Install Active Directory Domain Services
+  2. Promote as a Domain Controller
+  3. Create a new Domain Admin
+  4. Join Client-1 to Domain
+  5. Verify Client-1 Shows up in Active Directory Users and Computers
+  6. Create Domain Non-Admin User
+  7. Setup Remote Desktop for Non-Admin Users on Client-1
+
+<h2>Preparing Active Directory: </h2>
 
 <h4>Creating Domain Controller Virtual Machine:</h4>
 <p>
-Azure -> Resource Group -> New -> Name resource group "ADLab" -> Set to certain region
+Azure -> Resource Group -> New -> Name resource group "ADLab" -> Set to certain region -> Review + Create -> Create
 </p>
 <p>
 <img width="729" height="328" alt="Step 1" src="https://github.com/user-attachments/assets/64981b98-8f26-451b-9ece-a3bef78c4b7e" />
@@ -38,7 +50,8 @@ Azure -> Resource Group -> New -> Name resource group "ADLab" -> Set to certain 
 <br />
 
 <p>
-Virtual Network -> New -> Set to ADLab resource group -> Name it "AD-Vnet" -> Set to same region as ADLab 
+Virtual Network -> New -> Set to ADLab resource group -> Name it "AD-Vnet" -> Set to same region as AD-Lab -> Review + Create 
+-> Create 
 </p>
 <p>
 <img width="783" height="651" alt="Step 2" src="https://github.com/user-attachments/assets/cebafae2-1dd5-46d3-9d12-d2c5129de010" />
@@ -58,7 +71,7 @@ Set username and password -> Check both licensing boxes
 <img width="795" height="640" alt="Step 4" src="https://github.com/user-attachments/assets/4230c5d2-32bd-4b74-9cb6-6e716fbb58e6" />
 </p>
 <p>
-Set virtual network to ADVnet -> Set subnet as default 
+Set virtual network to ADVnet -> Set subnet as default -> Review + Create -> Create
 </p>
 <p>
 <img width="776" height="180" alt="Step 5" src="https://github.com/user-attachments/assets/25221ee7-8f03-4480-83f9-aade9cb6ae34" />
@@ -140,7 +153,15 @@ Run "ipconfig /all" in Powershell -> Output for the DNS settings should show DC-
 <img width="742" height="63" alt="Step 16" src="https://github.com/user-attachments/assets/84fc9ecc-497c-4767-9648-e1adbecde17e" />
 </p>
 
+<h2>Deploying Active Directory: </h2>
 
+<h4>Install Active Directory Domain Services:</h4>
+<p>
+Login to DC-1 -> Server Manager -> Add Roles and Features -> Next until Server Roles -> Select Active Directory Domain Services -> Add Features -> Next until Restart -> Restart if Required -> Yes -> Install -> Close
+</p>
+<p>
+
+</p>
 
 
 
