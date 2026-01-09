@@ -157,11 +157,91 @@ Run "ipconfig /all" in Powershell -> Output for the DNS settings should show DC-
 
 <h4>Install Active Directory Domain Services:</h4>
 <p>
-Login to DC-1 -> Server Manager -> Add Roles and Features -> Next until Server Roles -> Select Active Directory Domain Services -> Add Features -> Next until Restart -> Restart if Required -> Yes -> Install -> Close
+Login to DC-1 -> Server Manager -> Add Roles and Features 
+<p>
+<img width="619" height="238" alt="Step 1" src="https://github.com/user-attachments/assets/b217dab0-1eec-4858-ae13-fb186cebe05c" />
 </p>
 <p>
-
+-> Next until Server Roles -> Select Active Directory Domain Services -> Add Features -> Next until Restart -> Restart if Required -> Yes -> Install -> Close
+<p>
+<img width="589" height="501" alt="Step 2" src="https://github.com/user-attachments/assets/ed89f4fc-3755-4495-bc2d-c5f06b88564f" />
 </p>
+
+<h4>Promote as a Domain Controller:</h4>
+
+<p>
+DC-1 -> Server Manager -> Flag -> Promote the Server to a Domain Controller
+<p>
+<img width="340" height="58" alt="Step 3" src="https://github.com/user-attachments/assets/c2fecde5-fdd0-41d6-8c91-dc7e1a15831b" />
+</p>
+<p>
+-> Add a new forest -> enter mydomain.com -> Next -> set password -> Next -> Uncheck Create DNS Delegation -> Next until Install -> Computer will auto restart -> Log back in as mydomain.com\labuser
+<p>
+<img width="393" height="213" alt="Step 6" src="https://github.com/user-attachments/assets/73da7377-9108-4245-87c5-3bcc2761fc32" />
+</p>
+
+<h4>Create Employee, Admins, and Clients Organizational Units: </h4>
+
+<p>
+DC-1 -> Start -> Windows Tools -> Active Directory Users and Computers -> right click mydomain.com ->
+New -> Organizational Unit -> Create "_EMPLOYEES" -> Ok -> Do again for "_ADMIN" -> Do again for "_CLIENTS"
+<p>
+<img width="1015" height="402" alt="Step 4" src="https://github.com/user-attachments/assets/9e50639b-1f5c-4fd3-8ed3-fedd01559e36" />
+</p>
+
+<h4>Create a new Admin "Jane Doe":</h4>
+
+<p>
+Active Directory Users and Computers -> right click _ADMINS folder -> New -> User -> Fill out info; name it "Jane Doe" -> Next -> Input password; "Password never expires" -> Next -> Finish 
+<p>
+<img width="436" height="375" alt="Step 7" src="https://github.com/user-attachments/assets/c4235a66-d281-4f37-8689-3c853d1e5acc" />
+</p>
+
+<h4>Add Jane Doe to Domain Admins Security Group:</h4>
+
+<p>
+Right click jane doe in _ADMINS -> Properties -> Member Of -> Add -> Type "Domain Admins" -> Check Names -> Ok -> Apply -> Ok 
+<p>
+<img width="846" height="348" alt="Step 8" src="https://github.com/user-attachments/assets/8c13fdfd-2a4e-4b62-96a4-2402f527609a" />
+<p>
+-> Logout and log back in as mydomain.com\jane_admin
+<p>
+<img width="400" height="207" alt="Step 10" src="https://github.com/user-attachments/assets/6b717f2b-69b0-473a-885f-8bbcb2d4c0a6" />
+</p>
+
+<h4>Create Domain Non-Admin User:</h4>
+
+<p>
+Login to DC-1 as mydomain.com\jane_admin -> Windows Tools -> Active Directory Users and Computers -> _EMPLOYEES OU -> Right click _EMPLOYEES -> New -> User -> Input username and password -> Finish 
+<p>
+<img width="558" height="193" alt="Step 11" src="https://github.com/user-attachments/assets/c3cd275d-5038-4dd6-8ecb-aa67a95f78f5" />
+</p>
+
+<h4>Join Client-1 to Domain:</h4>
+
+<p>
+Log into Client-1 as original local admin labuser -> Win + R -> Type sysdm.cpl to open System Properties ->  Computer Name -> Change -> type "mydomain.com" -> Ok -> Enter mydomain.com\jane_admin and her admin password -> Restart PC 
+<p>
+<img width="1138" height="461" alt="Step 12" src="https://github.com/user-attachments/assets/b88eec6c-cb63-46af-bc40-0815829a56a9" />
+</p>
+
+<h4>Verify Client-1 Shows Up in Active Directory Users and Computers:</h4>
+
+<p>
+Login to DC-1 as jane_admin -> Windows Tools -> Active Directory Users and Computers -> mydomain -> Computers -> Drag and drop Client-1 into _CLIENTS OU 
+<p>
+<img width="406" height="176" alt="Step 13" src="https://github.com/user-attachments/assets/475f4867-8935-4789-9751-ee3289240601" />
+</p>
+
+<h4>Setup Remote Desktop for Non-Admin Users on Client-1:</h4>
+
+<p>
+Log into Client-1 as mydomain.com\jane_admin -> Start Menu -> System -> Remote Desktop -> User Accounts -> "Select users that can remotely access this PC" -> Add -> "domain users" -> Check Names -> Ok -> Ok 
+<p>
+<img width="953" height="387" alt="Step 14" src="https://github.com/user-attachments/assets/116b664e-7515-47a8-b33f-2655efe2b6d5" />
+</p>
+
+
 
 
 
